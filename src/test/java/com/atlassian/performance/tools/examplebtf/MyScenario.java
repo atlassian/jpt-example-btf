@@ -16,7 +16,7 @@ public class MyScenario implements Scenario {
 
     @Override
     public Action getLogInAction(WebJira jira, ActionMeter meter, UserMemory userMemory) {
-        return new MyLogInAction(jira.getDriver(), meter, userMemory);
+        return new MyLogInAction(jira, meter, userMemory);
     }
 
     @Override

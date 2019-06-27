@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    working_directory: ~/repo
+    environment:
+      TERM: dumb
+    steps:
+      - checkout
+      - run: ./mvnw verify -Djpt.btf.provision=true
+      - store_artifacts:
+          path: ./target/jpt-workspace
+      - store_test_results:
+          path: ./target/failsafe-reports

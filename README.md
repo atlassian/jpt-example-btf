@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/atlassian/jpt-example-btf.svg?style=svg)](https://circleci.com/gh/atlassian/jpt-example-btf)
+
 # Example benchmark of your Jira instance
 
 Read and customize the [benchmark](src/test/java/com/atlassian/performance/tools/examplebtf/MyBtfBenchmarkIT.java).

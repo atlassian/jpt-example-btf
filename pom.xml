@@ -34,6 +34,11 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
+        <dependency>
+            <groupId>com.atlassian.performance.tools</groupId>
+            <artifactId>docker-infrastructure</artifactId>
+            <version>0.1.2</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>

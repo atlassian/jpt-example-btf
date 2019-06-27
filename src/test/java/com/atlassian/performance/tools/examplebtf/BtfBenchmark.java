@@ -1,5 +1,6 @@
 package com.atlassian.performance.tools.examplebtf;
 
+import com.atlassian.performance.tools.dockerinfrastructure.api.jira.JiraCoreFormula;
 import com.atlassian.performance.tools.infrastructure.api.virtualusers.LocalVirtualUsers;
 import com.atlassian.performance.tools.report.api.FullReport;
 import com.atlassian.performance.tools.report.api.FullTimeline;
@@ -13,9 +14,11 @@ import com.atlassian.performance.tools.workspace.api.TaskWorkspace;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import static java.util.Collections.singletonList;
 
@@ -40,10 +43,10 @@ class BtfBenchmark {
     }
 
     private RawCohortResult applyLoad() {
+        VirtualUserOptions options = new VirtualUserOptions(target(), behavior);
         LOG.info("Benchmarking your Jira...");
         LOG.info("When this is finished, look for results in " + workspace.getDirectory());
         LocalVirtualUsers virtualUsers = new LocalVirtualUsers(workspace.getDirectory());
-        VirtualUserOptions options = new VirtualUserOptions(target, behavior);
         try {
             virtualUsers.applyLoad(options);
         } finally {
@@ -52,6 +55,28 @@ class BtfBenchmark {
         return new RawCohortResult.Factory().fullResult(
             "my-jira",
             workspace.getDirectory()
+        );
+    }
+
+    private VirtualUserTarget target() {
+        if (Objects.equals(System.getProperty("jpt.btf.provision"), "true")) {
+            return provision();
+        } else {
+            return target;
+        }
+    }
+
+    private VirtualUserTarget provision() {
+        LOG.info("Provisioning a Jira in Docker...");
+        URI uri = new JiraCoreFormula.Builder()
+            .inDockerNetwork(false)
+            .build()
+            .provision()
+            .getUri();
+        return new VirtualUserTarget(
+            uri,
+            "admin",
+            "admin"
         );
     }
 
