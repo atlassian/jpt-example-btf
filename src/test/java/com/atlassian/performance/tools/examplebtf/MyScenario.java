@@ -47,7 +47,15 @@ class BestEffortW3cPerformanceTimeline implements W3cPerformanceTimeline {
     @Override
     public RecordedPerformanceEntries record() {
         try {
-            return timeline.record();
+            RecordedPerformanceEntries entries = timeline.record();
+            if (entries == null) {
+                return null;
+            }
+            if (entries.getNavigations().isEmpty()) {
+                LOG.warn("No navigations");
+                return null;
+            }
+            return entries;
         } catch (Exception e) {
             LOG.warn("Failed to record the timeline", e);
             return null;
