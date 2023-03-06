@@ -6,9 +6,8 @@ Thank you for taking the time to contribute!
  
 Pull requests, issues and comments are welcome. For pull requests, please:
     1. fork the repo
-    2. enable CI for your fork, see [CircleCI docs](https://circleci.com/docs/2.0/project-build/#adding-projects)
-    3. create a branch with your changes
-    4. raise a pull request
+    2. create a branch with your changes
+    3. raise a pull request
 
 Atlassian requires contributors to sign a Contributor License Agreement,
 known as a CLA. This serves as a record stating that the contributor is
