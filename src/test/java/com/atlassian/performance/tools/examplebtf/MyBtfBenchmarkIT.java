@@ -14,9 +14,9 @@ public class MyBtfBenchmarkIT {
     public void benchmarkMyJira() {
         new BtfBenchmark(
             new VirtualUserTarget(
-                URI.create("http://localhost:8090/jira/"), // point to your Jira
+                URI.create("http://3.121.217.29:8080/"), // point to your Jira
                 "admin",
-                "admin"
+                "6c2860f2-0f3e-44b8-b716-0e183e0e1f5e"
             ),
             new VirtualUserBehavior.Builder(MyScenario.class)
                 .browser(MyBrowser.class)
